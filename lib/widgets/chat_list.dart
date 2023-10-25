@@ -4,7 +4,7 @@ import 'package:chatterbox/widgets/sender_message_card.dart';
 import 'package:flutter/material.dart';
 
 class ChatList extends StatelessWidget {
-  const ChatList({Key? key}) : super(key: key);
+  const ChatList({super.key});
 
   @override
   Widget build(BuildContext context) {

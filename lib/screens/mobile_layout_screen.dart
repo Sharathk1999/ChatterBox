@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MobileLayoutScreen extends StatelessWidget {
-  const MobileLayoutScreen({Key? key}) : super(key: key);
+  const MobileLayoutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

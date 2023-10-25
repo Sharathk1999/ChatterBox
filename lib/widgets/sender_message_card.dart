@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class SenderMessageCard extends StatelessWidget {
   const SenderMessageCard({
-    Key? key,
+    super.key,
     required this.message,
     required this.date,
-  }) : super(key: key);
+  });
   final String message;
   final String date;
 

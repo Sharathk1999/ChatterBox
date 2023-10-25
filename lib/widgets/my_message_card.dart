@@ -5,7 +5,7 @@ class MyMessageCard extends StatelessWidget {
   final String message;
   final String date;
 
-  const MyMessageCard({Key? key, required this.message, required this.date}) : super(key: key);
+  const MyMessageCard({super.key, required this.message, required this.date});
 
   @override
   Widget build(BuildContext context) {

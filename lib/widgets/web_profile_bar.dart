@@ -2,7 +2,7 @@ import 'package:chatterbox/colors.dart';
 import 'package:flutter/material.dart';
 
 class WebProfileBar extends StatelessWidget {
-  const WebProfileBar({Key? key}) : super(key: key);
+  const WebProfileBar({super.key});
 
   @override
   Widget build(BuildContext context) {
