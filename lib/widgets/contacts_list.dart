@@ -1,4 +1,3 @@
-import 'package:chatterbox/colors.dart';
 import 'package:chatterbox/info.dart';
 import 'package:chatterbox/screens/mobile_chat_screen.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +56,7 @@ class ContactsList extends StatelessWidget {
                   ),
                 ),
               ),
-              const Divider(color: dividerColor, indent: 85),
+              // const Divider(color: dividerColor, indent: 85),
             ],
           );
         },
