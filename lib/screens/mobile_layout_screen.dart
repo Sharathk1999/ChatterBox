@@ -15,7 +15,7 @@ class MobileLayoutScreen extends StatelessWidget {
           elevation: 0,
           backgroundColor: appBarColor,
           centerTitle: false,
-          title:  Text(
+          title: Text(
             'ChatterBox',
             style: GoogleFonts.quicksand(
               fontSize: 20,
@@ -33,15 +33,21 @@ class MobileLayoutScreen extends StatelessWidget {
               onPressed: () {},
             ),
           ],
-          bottom:  TabBar(
+          bottom: TabBar(
+            indicator: BoxDecoration(
+              color: Colors.black54,
+              borderRadius: BorderRadius.circular(50),
+              // image: DecorationImage(image: AssetImage('assets/backgroundImage.png',),fit: BoxFit.cover)
+            ),      
             indicatorColor: tabColor,
             indicatorWeight: 4,
-            labelColor: tabColor,
-            unselectedLabelColor: Colors.grey,
+            labelColor: Colors.white60,
+            
+            unselectedLabelColor: Colors.white30,
             labelStyle: GoogleFonts.quicksand(
               fontWeight: FontWeight.bold,
             ),
-            tabs:const [
+            tabs: const [
               Tab(
                 text: 'Chatter',
               ),
@@ -59,8 +65,8 @@ class MobileLayoutScreen extends StatelessWidget {
           onPressed: () {},
           backgroundColor: tabColor,
           child: const Icon(
-            Icons.message_rounded,
-            color: Colors.white24,
+            Icons.chat_bubble_outline_rounded,
+            color: Colors.white38,
           ),
         ),
       ),
