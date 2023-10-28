@@ -1,9 +1,14 @@
 import 'package:chatterbox/common/custom_button.dart';
+import 'package:chatterbox/features/auth/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
+
+  void navToLoginScreen(BuildContext context){
+    Navigator.of(context).pushNamed(LoginScreen.routeName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +58,8 @@ class LandingScreen extends StatelessWidget {
             SizedBox(
               width: size.width * .75,
               child: CustomButton(
-                text: 'Agree and Countinue',
-                onPressed: () {},
+                text: 'Agree and Continue',
+                onPressed: () => navToLoginScreen(context),
               ),
             ),
           ],

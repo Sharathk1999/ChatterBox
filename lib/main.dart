@@ -1,7 +1,9 @@
 import 'package:chatterbox/features/landing/screens/landing_screen.dart';
 import 'package:chatterbox/firebase_options.dart';
+import 'package:chatterbox/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'colors.dart';
 
@@ -23,9 +25,13 @@ class MyApp extends StatelessWidget {
       title: 'ChatterBox',
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: backgroundColor,
-        // textTheme: GoogleFonts.quicksandTextTheme(),
+        appBarTheme: const AppBarTheme(
+          color: appBarColor
+        ),
+         textTheme: GoogleFonts.quicksandTextTheme(),
       ),
-      home: LandingScreen()
+      onGenerateRoute: (settings) => generateRoute(settings),
+      home:const LandingScreen()
     );
   }
 }
