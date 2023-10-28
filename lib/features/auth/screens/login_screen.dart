@@ -1,17 +1,20 @@
 import 'package:chatterbox/colors.dart';
 import 'package:chatterbox/common/custom_button.dart';
+import 'package:chatterbox/common/utils/utils.dart';
+import 'package:chatterbox/features/auth/repository/auth_repository.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   static const routeName = '/login-screen';
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final phoneController = TextEditingController();
   Country? country;
 
@@ -24,18 +27,31 @@ class _LoginScreenState extends State<LoginScreen> {
   void pickCountry() {
     showCountryPicker(
       context: context,
-      countryListTheme:const CountryListThemeData(
-        backgroundColor: backgroundColor,
-        textStyle: TextStyle(
-          color: whiteColor,
-        )
-      ),
+      countryListTheme: const CountryListThemeData(
+          backgroundColor: backgroundColor,
+          bottomSheetHeight: 500,
+          searchTextStyle: TextStyle(color: whiteColor),
+          textStyle: TextStyle(
+            color: whiteColor,
+          )),
       onSelect: (Country _country) {
         setState(() {
           country = _country;
         });
       },
     );
+  }
+
+  void sendPhoneNumber() {
+    String phoneNumber = phoneController.text.trim();
+    if (country != null && phoneNumber.isNotEmpty) {
+      ref
+          .read(authRepositoryProvider)
+          .signInWithPhone(context, '+${country!.phoneCode}$phoneNumber');
+    } else {
+      showSnackBar(
+          context: context, content: 'Fill country code and phone number');
+    }
   }
 
   @override
@@ -69,13 +85,13 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Row(
               children: [
-                if(country != null)
-                 Text(
-                  '+${country!.phoneCode}',
-                  style:const TextStyle(
-                    color: whiteColor,
+                if (country != null)
+                  Text(
+                    '+${country!.phoneCode}',
+                    style: const TextStyle(
+                      color: whiteColor,
+                    ),
                   ),
-                ),
                 const SizedBox(
                   width: 10,
                 ),
@@ -104,7 +120,10 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(
               width: 120,
-              child: CustomButton(text: 'Continue', onPressed: () {}),
+              child: CustomButton(
+                text: 'Continue',
+                onPressed: sendPhoneNumber,
+              ),
             )
           ],
         ),

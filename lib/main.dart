@@ -3,6 +3,7 @@ import 'package:chatterbox/firebase_options.dart';
 import 'package:chatterbox/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'colors.dart';
@@ -12,7 +13,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -21,18 +26,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'ChatterBox',
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: backgroundColor,
-        appBarTheme: const AppBarTheme(
-          color: appBarColor
+        debugShowCheckedModeBanner: false,
+        title: 'ChatterBox',
+        theme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: backgroundColor,
+          appBarTheme: const AppBarTheme(color: appBarColor),
+          textTheme: GoogleFonts.quicksandTextTheme(),
         ),
-         textTheme: GoogleFonts.quicksandTextTheme(),
-      ),
-      onGenerateRoute: (settings) => generateRoute(settings),
-      home:const LandingScreen()
-    );
+        onGenerateRoute: (settings) => generateRoute(settings),
+        home: const LandingScreen());
   }
 }
 

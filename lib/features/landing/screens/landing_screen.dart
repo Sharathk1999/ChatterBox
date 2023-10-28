@@ -1,3 +1,4 @@
+import 'package:chatterbox/colors.dart';
 import 'package:chatterbox/common/custom_button.dart';
 import 'package:chatterbox/features/auth/screens/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,55 +15,60 @@ class LandingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(
-              height: 55,
-            ),
-            Text(
-              'Welcome to ChatterBox',
-              style: GoogleFonts.quicksand(
-                fontSize: 28,
-                fontWeight: FontWeight.w600,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(
+                height: 55,
               ),
-            ),
-            SizedBox(
-              height: size.height / 10,
-            ),
-            const CircleAvatar(
-              radius: 150,
-              backgroundImage: AssetImage(
-                'assets/chatterBox_loginbg.png',
-              ),
-            ),
-            SizedBox(
-              height: size.height / 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Text(
-                'Read our privacy policy and tap Agree and Countinue to \n accept the terms and conditions.',
-                style: GoogleFonts.quicksand(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.grey,
+          const    Text(
+                'Welcome to ChatterBox',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w600,
+                  color: whiteColor,
                 ),
-                textAlign: TextAlign.center,
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              width: size.width * .75,
-              child: CustomButton(
-                text: 'Agree and Continue',
-                onPressed: () => navToLoginScreen(context),
+              SizedBox(
+                height: size.height / 10,
               ),
-            ),
-          ],
+              const CircleAvatar(
+                radius: 150,
+                backgroundImage: AssetImage(
+                  'assets/chatterBox_loginbg.png',
+                ),
+              ),
+              SizedBox(
+                height: size.height / 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Text(
+                  'Read our privacy policy and tap Agree and Countinue to \n accept the terms and conditions.',
+                  style: GoogleFonts.quicksand(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.grey,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: size.width * 0.75,
+                child: CustomButton(
+                  text: 'Agree and Continue',
+                  onPressed: () => navToLoginScreen(context),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
