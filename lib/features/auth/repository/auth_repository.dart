@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:chatterbox/common/utils/utils.dart';
 import 'package:chatterbox/features/auth/screens/otp_screen.dart';
 import 'package:chatterbox/features/auth/screens/user_info_screen.dart';
@@ -61,5 +63,22 @@ class AuthRepository {
     } on FirebaseAuthException catch (e) {
       showSnackBar(context: context, content: e.message!);
     }
+  }
+
+  void saveUserDataToFirebase({
+    required String name,
+    required File? profilePic,
+    required ProviderRef ref,
+    required BuildContext context,
+  })async{
+     try {
+       String uid = auth.currentUser!.uid;
+       String photoUrl = 'https://cdn.pixabay.com/photo/2016/04/01/10/11/avatar-1299805_1280.png';
+       if (profilePic != null) {
+         
+       }
+     } catch (e) {
+       showSnackBar(context: context, content: e.toString());
+     }
   }
 }
