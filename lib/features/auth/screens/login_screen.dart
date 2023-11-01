@@ -1,6 +1,6 @@
 import 'package:chatterbox/colors.dart';
-import 'package:chatterbox/common/custom_button.dart';
 import 'package:chatterbox/common/utils/utils.dart';
+import 'package:chatterbox/common/widgets/custom_button.dart';
 import 'package:chatterbox/features/auth/repository/auth_repository.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';

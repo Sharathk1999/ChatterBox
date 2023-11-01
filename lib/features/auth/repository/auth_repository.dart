@@ -1,12 +1,16 @@
 import 'dart:io';
 
+import 'package:chatterbox/common/repository/firebase_common_storage_repo.dart';
 import 'package:chatterbox/common/utils/utils.dart';
 import 'package:chatterbox/features/auth/screens/otp_screen.dart';
 import 'package:chatterbox/features/auth/screens/user_info_screen.dart';
+import 'package:chatterbox/screens/mobile_layout_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
+
+import '../../../models/user_model.dart';
 
 final authRepositoryProvider = Provider(
   (ref) => AuthRepository(
@@ -22,6 +26,16 @@ class AuthRepository {
     required this.auth,
     required this.firestore,
   });
+
+  Future<UserModel?> getCurrentUserData()async{
+    var userData = await firestore.collection('users').doc(auth.currentUser?.uid).get();
+     UserModel? user;
+    if (userData.data() != null) {
+      user = UserModel.fromMap(userData.data()!);
+    }
+    return user;
+    
+  }
 
   void signInWithPhone(BuildContext context, String phoneNumber) async {
     try {
@@ -57,9 +71,10 @@ class AuthRepository {
         verificationId: verificationId,
         smsCode: userOTP,
       );
-     await auth.signInWithCredential(credential);
-     if(!context.mounted) return;
-     Navigator.pushNamedAndRemoveUntil(context, UserInfoScreen.routeName, (route) => false);
+      await auth.signInWithCredential(credential);
+      if (!context.mounted) return;
+      Navigator.pushNamedAndRemoveUntil(
+          context, UserInfoScreen.routeName, (route) => false);
     } on FirebaseAuthException catch (e) {
       showSnackBar(context: context, content: e.message!);
     }
@@ -70,15 +85,40 @@ class AuthRepository {
     required File? profilePic,
     required ProviderRef ref,
     required BuildContext context,
-  })async{
-     try {
-       String uid = auth.currentUser!.uid;
-       String photoUrl = 'https://cdn.pixabay.com/photo/2016/04/01/10/11/avatar-1299805_1280.png';
-       if (profilePic != null) {
-         
-       }
-     } catch (e) {
-       showSnackBar(context: context, content: e.toString());
-     }
+  }) async {
+    try {
+      String uid = auth.currentUser!.uid;
+      String photoUrl =
+          'https://cdn.pixabay.com/photo/2016/04/01/10/11/avatar-1299805_1280.png';
+      if (profilePic != null) {
+        photoUrl = await ref
+            .read(firebaseCommonStorageRepositoryProvider)
+            .storeFileToFirebase(
+              'profilePic/$uid',
+              profilePic,
+            );
+      }
+      var user = UserModel(
+        name: name,
+        uid: uid,
+        profilePic: photoUrl,
+        isOnline: true,
+        phoneNumber: auth.currentUser!.uid,
+        groupId: [],
+      );
+
+      await firestore.collection('users').doc(uid).set(user.toMap());
+      if(!context.mounted) return;
+
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const MobileLayoutScreen(),
+        ),
+        (route) => false,
+      );
+    } catch (e) {
+      showSnackBar(context: context, content: e.toString());
+    }
   }
 }

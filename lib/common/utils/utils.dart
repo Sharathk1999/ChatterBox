@@ -15,14 +15,12 @@ Future<File?> pickImageFromGallery(BuildContext context)async{
   File? image;
   try {
     final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+   
     if (pickedImage != null) {
       image = File(pickedImage.path);
     }
-    // if(!context.mounted){
-    //   return null;
-    // }
-  } catch (e) {
     
+  } catch (e) {
     showSnackBar(context: context, content: e.toString());
   }
   return image;

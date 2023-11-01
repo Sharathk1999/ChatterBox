@@ -1,5 +1,5 @@
 import 'package:chatterbox/colors.dart';
-import 'package:chatterbox/common/custom_button.dart';
+import 'package:chatterbox/common/widgets/custom_button.dart';
 import 'package:chatterbox/features/auth/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

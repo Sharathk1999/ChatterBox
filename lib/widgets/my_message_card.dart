@@ -33,6 +33,7 @@ class MyMessageCard extends StatelessWidget {
                   message,
                   style: const TextStyle(
                     fontSize: 16,
+                    color: whiteColor
                   ),
                 ),
               ),

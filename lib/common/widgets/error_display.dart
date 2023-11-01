@@ -7,7 +7,7 @@ class ErrorDisplayScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(error),
+      child: Text(error,style:const TextStyle(fontSize: 10),),
     );
   }
 }

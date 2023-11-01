@@ -1,7 +1,7 @@
+import 'package:chatterbox/colors.dart';
 import 'package:chatterbox/info.dart';
 import 'package:chatterbox/screens/mobile_chat_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ContactsList extends StatelessWidget {
   const ContactsList({super.key});
@@ -29,14 +29,15 @@ class ContactsList extends StatelessWidget {
                   child: ListTile(
                     title: Text(
                       info[index]['name'].toString(),
-                      style: GoogleFonts.quicksand( fontSize: 18),
+                      style:const TextStyle( fontSize: 18, color: whiteColor),
                     ),
                     subtitle: Padding(
                       padding: const EdgeInsets.only(top: 6.0),
                       child: Text(
                         info[index]['message'].toString(),
-                        style: GoogleFonts.quicksand(
-                          fontSize: 15
+                        style:const TextStyle(
+                          fontSize: 15,
+                          color: Colors.grey,
                         ),
                       ),
                     ),

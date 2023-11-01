@@ -1,6 +1,6 @@
 
 
-import 'package:chatterbox/common/error_display.dart';
+import 'package:chatterbox/common/widgets/error_display.dart';
 import 'package:chatterbox/features/auth/screens/login_screen.dart';
 import 'package:chatterbox/features/auth/screens/otp_screen.dart';
 import 'package:chatterbox/features/auth/screens/user_info_screen.dart';

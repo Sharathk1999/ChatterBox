@@ -1,17 +1,19 @@
 import 'dart:io';
 
 import 'package:chatterbox/common/utils/utils.dart';
+import 'package:chatterbox/features/auth/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class UserInfoScreen extends StatefulWidget {
+class UserInfoScreen extends ConsumerStatefulWidget {
   static const String routeName = '/user-information';
   const UserInfoScreen({super.key});
 
   @override
-  State<UserInfoScreen> createState() => _UserInfoScreenState();
+  ConsumerState<UserInfoScreen> createState() => _UserInfoScreenState();
 }
 
-class _UserInfoScreenState extends State<UserInfoScreen> {
+class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
   final TextEditingController nameController = TextEditingController();
   File? image;
 
@@ -24,6 +26,18 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
   void selectImage() async {
     image = await pickImageFromGallery(context);
     setState(() {});
+  }
+
+  void storeUserData() async {
+    String name = nameController.text.trim();
+    if (name.isNotEmpty) {
+      ref
+          .read(authControllerProvider)
+          .saveUserDataToFirebase(context, name, image);
+    } else {
+      showSnackBar(
+          context: context, content: 'Please enter a username to continue');
+    }
   }
 
   @override
@@ -81,7 +95,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: storeUserData,
                     icon: const Icon(
                       Icons.done_outline_rounded,
                     ),
