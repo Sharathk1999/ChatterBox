@@ -49,7 +49,7 @@ class MyApp extends ConsumerWidget {
               return ErrorDisplayScreen(
                   error: 'this is err =>${err.toString()}');
             },
-            loading: () => const Loader(),
+            loading: () => const LoaderWidget(),
           ),
     );
   }

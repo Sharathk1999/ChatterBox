@@ -4,6 +4,8 @@ import 'package:chatterbox/common/widgets/error_display.dart';
 import 'package:chatterbox/features/auth/screens/login_screen.dart';
 import 'package:chatterbox/features/auth/screens/otp_screen.dart';
 import 'package:chatterbox/features/auth/screens/user_info_screen.dart';
+import 'package:chatterbox/features/contacts_select/screens/contacts_select_screen.dart';
+import 'package:chatterbox/screens/mobile_chat_screen.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -25,6 +27,16 @@ Route<dynamic> generateRoute(RouteSettings settings) {
        case UserInfoScreen.routeName:
       return MaterialPageRoute(
         builder: (context) =>const  UserInfoScreen(),
+      );
+
+       case ContactsSelectScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) =>const  ContactsSelectScreen(),
+      );
+
+       case MobileChatScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) =>const  MobileChatScreen(),
       );
 
     default:

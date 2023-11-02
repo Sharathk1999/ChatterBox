@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MobileChatScreen extends StatelessWidget {
+  static const String routeName ='/mobile-chat-screen';
   const MobileChatScreen({super.key});
 
   @override
