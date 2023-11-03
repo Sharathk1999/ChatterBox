@@ -1,21 +1,41 @@
 import 'package:chatterbox/colors.dart';
-import 'package:chatterbox/info.dart';
+import 'package:chatterbox/common/widgets/loader.dart';
+import 'package:chatterbox/features/auth/controller/auth_controller.dart';
 import 'package:chatterbox/widgets/chat_list.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MobileChatScreen extends StatelessWidget {
-  static const String routeName ='/mobile-chat-screen';
-  const MobileChatScreen({super.key});
+class MobileChatScreen extends ConsumerWidget {
+  static const String routeName = '/mobile-chat-screen';
+  final String name;
+  final String uid;
+  const MobileChatScreen({super.key, required this.name, required this.uid});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appBarColor,
-        title: Text(
-          info[0]['name'].toString(),
-          style: GoogleFonts.quicksand(),
+        title: StreamBuilder(
+          stream: ref.read(authControllerProvider).userDataById(uid),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const LoaderWidget();
+            }
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(name),
+                Text(
+                  snapshot.data!.isOnline ? 'online' : 'offline',
+                  style:const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ],
+            );
+          },
         ),
         centerTitle: false,
         actions: [
@@ -44,16 +64,28 @@ class MobileChatScreen extends StatelessWidget {
               fillColor: mobileChatBoxColor,
               prefixIcon: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Icon(Icons.emoji_emotions, color: Colors.grey,),
+                child: Icon(
+                  Icons.emoji_emotions,
+                  color: Colors.grey,
+                ),
               ),
-              suffixIcon:const Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 20.0),
+              suffixIcon: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children:  [
-                    Icon(Icons.camera_alt, color: Colors.grey,),
-                    Icon(Icons.attach_file, color: Colors.grey,),
-                    Icon(Icons.money, color: Colors.grey,),
+                  children: [
+                    Icon(
+                      Icons.camera_alt,
+                      color: Colors.grey,
+                    ),
+                    Icon(
+                      Icons.attach_file,
+                      color: Colors.grey,
+                    ),
+                    Icon(
+                      Icons.money,
+                      color: Colors.grey,
+                    ),
                   ],
                 ),
               ),

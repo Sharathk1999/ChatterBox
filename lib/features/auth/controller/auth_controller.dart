@@ -48,4 +48,9 @@ class AuthController {
       context: context,
     );
   }
+
+
+  Stream<UserModel> userDataById(String userId){
+    return authRepository.userData(userId);
+  }
 }

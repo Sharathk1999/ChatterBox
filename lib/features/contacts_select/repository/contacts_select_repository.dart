@@ -43,7 +43,10 @@ class ContactsSelectRepository {
             selectedContact.phones[0].number.replaceAll(' ', '');
             if(selectedPhoneNumber == userData.phoneNumber){
               isFound = true;
-              Navigator.pushNamed(context, MobileChatScreen.routeName);
+              Navigator.pushNamed(context, MobileChatScreen.routeName,arguments: {
+                'name':userData.name,
+                'uid':userData.uid,
+              });
             }
             //why else is not used here because if num !found it will keep telling num !found continuously
       }
