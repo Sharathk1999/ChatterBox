@@ -24,7 +24,7 @@ class _BottomCustomChatFieldState extends ConsumerState<BottomCustomChatField> {
       ref.read(chatControllerProvider).sendTextMessage(
             context,
             _messageController.text.trim(),
-            widget.receiverUserId,
+            widget.receiverUserId,  
           );
 
           _messageController.clear();

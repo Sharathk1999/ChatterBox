@@ -9,7 +9,7 @@ class LoaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Center(
-       child: LoadingAnimationWidget.inkDrop(color: whiteColor, size: 70),
+       child: LoadingAnimationWidget.inkDrop(color: whiteColor, size: 50),
       
     );
   }

@@ -46,6 +46,7 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   flutter_contacts: ^1.1.7+1
   uuid: ^4.1.0
+  intl: ^0.18.1
  
 
 dev_dependencies:
