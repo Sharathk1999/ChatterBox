@@ -1,23 +1,55 @@
 import 'package:chatterbox/colors.dart';
+import 'package:chatterbox/features/chat/controller/chat_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BottomCustomChatField extends StatefulWidget {
+class BottomCustomChatField extends ConsumerStatefulWidget {
+  final String receiverUserId;
   const BottomCustomChatField({
     super.key,
+    required this.receiverUserId,
   });
 
   @override
-  State<BottomCustomChatField> createState() => _BottomCustomChatFieldState();
+  ConsumerState<BottomCustomChatField> createState() =>
+      _BottomCustomChatFieldState();
 }
 
-class _BottomCustomChatFieldState extends State<BottomCustomChatField> {
+class _BottomCustomChatFieldState extends ConsumerState<BottomCustomChatField> {
   bool isShowSendButton = false;
+  final TextEditingController _messageController = TextEditingController();
+
+  void sendTextMessage() async {
+    if (isShowSendButton) {
+      ref.read(chatControllerProvider).sendTextMessage(
+            context,
+            _messageController.text.trim(),
+            widget.receiverUserId,
+          );
+
+          _messageController.clear();
+          //or
+          /*
+          setState((){
+            _messageController='';
+          }) 
+           */
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _messageController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(
           child: TextFormField(
+            controller: _messageController,
             onChanged: (val) {
               if (val.isNotEmpty) {
                 setState(() {
@@ -26,11 +58,11 @@ class _BottomCustomChatFieldState extends State<BottomCustomChatField> {
               }
               if (val.isEmpty) {
                 setState(() {
-                  isShowSendButton=false;
+                  isShowSendButton = false;
                 });
               }
             },
-            style:const TextStyle(
+            style: const TextStyle(
               color: whiteColor,
             ),
             decoration: InputDecoration(
@@ -82,9 +114,8 @@ class _BottomCustomChatFieldState extends State<BottomCustomChatField> {
                   ],
                 ),
               ),
-              
               hintText: 'Type a message!',
-              hintStyle:const TextStyle(
+              hintStyle: const TextStyle(
                 color: whiteColor,
               ),
               border: OutlineInputBorder(
@@ -98,17 +129,21 @@ class _BottomCustomChatFieldState extends State<BottomCustomChatField> {
             ),
           ),
         ),
-         Padding(
-          padding:const EdgeInsets.only(
+        Padding(
+          padding: const EdgeInsets.only(
             bottom: 5,
             right: 3,
             left: 3,
           ),
           child: CircleAvatar(
             backgroundColor: mobileChatBoxColor,
-            child: Icon(
-              isShowSendButton ? Icons.send_rounded : Icons.mic,
-              color: whiteColor,
+            radius: 24,
+            child: GestureDetector(
+              onTap: sendTextMessage,
+              child: Icon(
+                isShowSendButton ? Icons.send_rounded : Icons.mic,
+                color: whiteColor,
+              ),
             ),
           ),
         )

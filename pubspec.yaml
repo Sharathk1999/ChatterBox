@@ -45,6 +45,7 @@ dependencies:
   firebase_storage: ^11.4.1
   loading_animation_widget: ^1.2.0+4
   flutter_contacts: ^1.1.7+1
+  uuid: ^4.1.0
  
 
 dev_dependencies:
