@@ -1,73 +1,73 @@
 const info = [
   {
-    'name': 'Rivaan Ranawat',
+    'name': 'Sharath kumar',
     'message': 'Hey, how are you doing?',
     'time': '3:53 pm',
     'profilePic':
-        'https://upload.wikimedia.org/wikipedia/commons/8/85/Elon_Musk_Royal_Society_%28crop1%29.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/c/cd/Vijay_at_the_Nadigar_Sangam_Protest.jpg',
   },
   {
-    'name': 'John Doe',
+    'name': 'John Kumar',
     'message': 'Hello, whats up',
     'time': '2:25 pm',
     'profilePic':
-        'https://www.socialketchup.in/wp-content/uploads/2020/05/fi-vill-JOHN-DOE.jpg',
+        'https://m.media-amazon.com/images/M/MV5BZWJlODhlMzctOTU0Yi00MTUwLTkxODYtMDNjNTQxYTI2YTE1XkEyXkFqcGdeQXVyMTEzNzg0Mjkx._V1_.jpg',
   },
   {
-    'name': 'Naman Ranawat',
+    'name': 'Leo Das',
     'message': 'Hello, I want to sleep.',
     'time': '1:03 pm',
     'profilePic':
-        'https://media.cntraveler.com/photos/60596b398f4452dac88c59f8/16:9/w_3999,h_2249,c_limit/MtFuji-GettyImages-959111140.jpg',
+        'https://akm-img-a-in.tosshub.com/businesstoday/images/story/202310/1_65_1-sixteen_nine.jpg?size=948:533',
   },
   {
-    'name': 'Dad',
+    'name': 'Achan',
     'message': 'Call me, have some work',
     'time': '12:06 pm',
     'profilePic':
-        'https://pbs.twimg.com/profile_images/1419974913260232732/Cy_CUavB.jpg',
+        'https://feeds.abplive.com/onecms/images/uploaded-images/2021/06/19/94c49eb34e4df5be3b65045d175b4204_original.jpg?impolicy=abp_cdn&imwidth=650',
   },
   {
-    'name': 'Mom',
+    'name': 'Amma',
     'message': 'You ate food?',
     'time': '10:00 am',
     'profilePic':
-        'https://uploads.dailydot.com/2018/10/olli-the-polite-cat.jpg?auto=compress%2Cformat&ixlib=php-3.3.0',
+        'https://media.meer.com/attachments/7f3b2c19dd175fd6d3da763e2f8d8d4dfe13c0be/store/fill/860/645/aee270e11657a738d604c1b0abf650716e4254e49ea23c14d30504f9cfaa/The-love-mothers-give-to-their-children-can-change-the-world.jpg',
   },
   {
-    'name': 'Jurica',
+    'name': 'Chechi',
     'message': 'Yo!!!!! Long time, no see!?',
     'time': '9:53 am',
     'profilePic':
-        'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tJTIwcGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
+        'https://hips.hearstapps.com/hmg-prod/images/sister-quotes-1564697339.jpg?crop=1.00xw:0.752xh;0,0.142xh&resize=1200:*',
   },
   {
-    'name': 'Albert Dera',
+    'name': 'Friend',
     'message': 'Am I fat?',
     'time': '7:25 am',
     'profilePic':
-        'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cmFuZG9tJTIwcGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
+        'https://upload.wikimedia.org/wikipedia/commons/a/a0/Friends_.jpg',
   },
   {
-    'name': 'Joseph',
+    'name': 'Joseph Vijay',
     'message': 'I am from International Olym...',
     'time': '6:02 am',
     'profilePic':
-        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cmFuZG9tJTIwcGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
+        'https://www.themoviedb.org/t/p/w500/iGveyp8DuSr3YHK7m6faOXTKrjN.jpg',
   },
   {
-    'name': 'Sikandar',
+    'name': 'Virat',
     'message': 'Lets Code!',
     'time': '4:56 am',
     'profilePic':
-        'https://images.unsplash.com/photo-1619194617062-5a61b9c6a049?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHJhbmRvbSUyMHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60',
+        'https://www.hindustantimes.com/ht-img/img/2023/08/18/1600x900/kohli_71_1683829193033_1692354506172.webp',
   },
   {
-    'name': 'Ian Dooley',
+    'name': 'Ronaldo',
     'message': 'Images by Unsplash',
     'time': '1:00 am',
     'profilePic':
-        'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cmFuZG9tJTIwcGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Cristiano_Ronaldo_playing_for_Al_Nassr_FC_against_Persepolis%2C_September_2023_%28cropped%29.jpg/220px-Cristiano_Ronaldo_playing_for_Al_Nassr_FC_against_Persepolis%2C_September_2023_%28cropped%29.jpg',
   },
 ];
 
