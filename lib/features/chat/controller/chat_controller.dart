@@ -1,6 +1,7 @@
 import 'package:chatterbox/features/auth/controller/auth_controller.dart';
 import 'package:chatterbox/features/chat/repositories/chat_repository.dart';
 import 'package:chatterbox/models/chat_contact_model.dart';
+import 'package:chatterbox/models/message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,6 +25,10 @@ class ChatController {
 
   Stream<List<ChatContactModel>> chatCOntacts(){
     return chatRepository.getChatContacts();
+  }
+
+  Stream<List<MessageModel>> chatStream(String receiverUserId){
+    return chatRepository.getChatStream(receiverUserId);
   }
 
   void sendTextMessage(

@@ -1,6 +1,6 @@
 import 'package:chatterbox/colors.dart';
+import 'package:chatterbox/features/chat/widgets/contacts_list.dart';
 import 'package:chatterbox/features/contacts_select/screens/contacts_select_screen.dart';
-import 'package:chatterbox/widgets/contacts_list.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
