@@ -8,7 +8,7 @@ import 'package:chatterbox/screens/mobile_layout_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:riverpod/riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../models/user_model.dart';
 
@@ -128,5 +128,11 @@ class AuthRepository {
             event.data()!,
           ),
         ); //asking for data only when it's not null
+  }
+
+  void setUserState(bool isOnline)async{
+    await firestore.collection('users').doc(auth.currentUser!.uid).update({
+      'isOnline': isOnline,
+    });
   }
 }

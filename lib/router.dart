@@ -12,7 +12,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case LoginScreen.routeName:
       return MaterialPageRoute(
-        builder: (context) =>  LoginScreen(),
+        builder: (context) =>const  LoginScreen(),
       );
 
       case OTPScreen.routeName:

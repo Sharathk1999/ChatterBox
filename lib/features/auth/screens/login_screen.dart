@@ -34,6 +34,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           textStyle: TextStyle(
             color: whiteColor,
           )),
+      // ignore: no_leading_underscores_for_local_identifiers
       onSelect: (Country _country) {
         setState(() {
           country = _country;
@@ -124,7 +125,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 text: 'Continue',
                 onPressed: sendPhoneNumber,
               ),
-            )
+            ),
           ],
         ),
       ),
