@@ -1,8 +1,8 @@
 import 'package:chatterbox/common/widgets/loader.dart';
 import 'package:chatterbox/features/chat/controller/chat_controller.dart';
+import 'package:chatterbox/features/chat/widgets/my_message_card.dart';
+import 'package:chatterbox/features/chat/widgets/sender_message_card.dart';
 import 'package:chatterbox/models/message.dart';
-import 'package:chatterbox/widgets/my_message_card.dart';
-import 'package:chatterbox/widgets/sender_message_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -48,11 +48,13 @@ class _ChatListState extends ConsumerState<ChatList> {
               return MyMessageCard(
                 message: messageData.text,
                 date: sendTime,
+                type: messageData.messageType,
               );
             }
             return SenderMessageCard(
               message: messageData.text,
               date: sendTime,
+              type: messageData.messageType,
             );
           },
         );

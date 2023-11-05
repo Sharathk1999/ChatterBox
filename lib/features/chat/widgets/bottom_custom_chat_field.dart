@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:chatterbox/colors.dart';
+import 'package:chatterbox/common/enums/message_enum.dart';
+import 'package:chatterbox/common/utils/utils.dart';
 import 'package:chatterbox/features/chat/controller/chat_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,16 +28,35 @@ class _BottomCustomChatFieldState extends ConsumerState<BottomCustomChatField> {
       ref.read(chatControllerProvider).sendTextMessage(
             context,
             _messageController.text.trim(),
-            widget.receiverUserId,  
+            widget.receiverUserId,
           );
 
-          _messageController.clear();
-          //or
-          /*
+      _messageController.clear();
+      //or
+      /*
           setState((){
             _messageController='';
           }) 
            */
+    }
+  }
+
+  void sendFileMessage(
+    File file,
+    MessageEnum messageEnum,
+  ) {
+    ref.read(chatControllerProvider).sendFileMessage(
+          context,
+          file,
+          widget.receiverUserId,
+          messageEnum,
+        );
+  }
+
+  void selectImage() async {
+    File? image = await pickImageFromGallery(context);
+    if (image != null) {
+      sendFileMessage(image, MessageEnum.image);
     }
   }
 
@@ -98,7 +121,7 @@ class _BottomCustomChatFieldState extends ConsumerState<BottomCustomChatField> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: selectImage,
                       icon: const Icon(
                         Icons.camera_alt,
                         color: Colors.grey,
