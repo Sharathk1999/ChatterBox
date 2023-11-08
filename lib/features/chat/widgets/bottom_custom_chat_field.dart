@@ -4,6 +4,7 @@ import 'package:chatterbox/colors.dart';
 import 'package:chatterbox/common/enums/message_enum.dart';
 import 'package:chatterbox/common/utils/utils.dart';
 import 'package:chatterbox/features/chat/controller/chat_controller.dart';
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -22,6 +23,8 @@ class BottomCustomChatField extends ConsumerStatefulWidget {
 class _BottomCustomChatFieldState extends ConsumerState<BottomCustomChatField> {
   bool isShowSendButton = false;
   final TextEditingController _messageController = TextEditingController();
+  bool isShowEmoji = false;
+  FocusNode focusNode = FocusNode();
 
   void sendTextMessage() async {
     if (isShowSendButton) {
@@ -60,10 +63,36 @@ class _BottomCustomChatFieldState extends ConsumerState<BottomCustomChatField> {
     }
   }
 
-   void selectVideo() async {
+  void selectVideo() async {
     File? video = await pickVideoFromGallery(context);
     if (video != null) {
       sendFileMessage(video, MessageEnum.video);
+    }
+  }
+
+  void hideEmoji() {
+    setState(() {
+      isShowEmoji = false;
+    });
+  }
+
+  
+  void showEmoji() {
+    setState(() {
+      isShowEmoji = true;
+    });
+  }
+
+  void showKeyboard() => focusNode.requestFocus();
+  void hideKeyboard() => focusNode.unfocus;
+
+  void toggleEmojiKeyboard(){
+    if (isShowEmoji) {
+      showKeyboard();
+      hideEmoji();
+    }else{
+      hideKeyboard();
+      showEmoji();
     }
   }
 
@@ -75,108 +104,130 @@ class _BottomCustomChatFieldState extends ConsumerState<BottomCustomChatField> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        Expanded(
-          child: TextFormField(
-            controller: _messageController,
-            onChanged: (val) {
-              if (val.isNotEmpty) {
-                setState(() {
-                  isShowSendButton = true;
-                });
-              }
-              if (val.isEmpty) {
-                setState(() {
-                  isShowSendButton = false;
-                });
-              }
-            },
-            style: const TextStyle(
-              color: whiteColor,
+        Row(
+          children: [
+            Expanded(
+              child: TextFormField(
+                focusNode: focusNode,
+                controller: _messageController,
+                onChanged: (val) {
+                  if (val.isNotEmpty) {
+                    setState(() {
+                      isShowSendButton = true;
+                    });
+                  }
+                  if (val.isEmpty) {
+                    setState(() {
+                      isShowSendButton = false;
+                    });
+                  }
+                },
+                style: const TextStyle(
+                  color: whiteColor,
+                ),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: mobileChatBoxColor,
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: SizedBox(
+                      width: 100,
+                      child: Row(
+                        children: [
+                          IconButton(
+                            onPressed: toggleEmojiKeyboard,
+                            icon: const Icon(
+                              Icons.emoji_emotions,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.gif_box_rounded,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  suffixIcon: SizedBox(
+                    width: 100,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          onPressed: selectImage,
+                          icon: const Icon(
+                            Icons.camera_alt,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: selectVideo,
+                          icon: const Icon(
+                            Icons.attach_file,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  hintText: 'Type a message!',
+                  hintStyle: const TextStyle(
+                    color: whiteColor,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      width: 0,
+                      style: BorderStyle.none,
+                    ),
+                  ),
+                  contentPadding: const EdgeInsets.all(10),
+                ),
+              ),
             ),
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: mobileChatBoxColor,
-              prefixIcon: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: SizedBox(
-                  width: 100,
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.emoji_emotions,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.gif_box_rounded,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
+            Padding(
+              padding: const EdgeInsets.only(
+                bottom: 5,
+                right: 3,
+                left: 3,
+              ),
+              child: CircleAvatar(
+                backgroundColor: mobileChatBoxColor,
+                radius: 24,
+                child: GestureDetector(
+                  onTap: sendTextMessage,
+                  child: Icon(
+                    isShowSendButton ? Icons.send_rounded : Icons.mic,
+                    color: whiteColor,
                   ),
                 ),
               ),
-              suffixIcon: SizedBox(
-                width: 100,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    IconButton(
-                      onPressed: selectImage,
-                      icon: const Icon(
-                        Icons.camera_alt,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: selectVideo,
-                      icon: const Icon(
-                        Icons.attach_file,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              hintText: 'Type a message!',
-              hintStyle: const TextStyle(
-                color: whiteColor,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
-                borderSide: const BorderSide(
-                  width: 0,
-                  style: BorderStyle.none,
-                ),
-              ),
-              contentPadding: const EdgeInsets.all(10),
             ),
-          ),
+          
+          ],
         ),
-        Padding(
-          padding: const EdgeInsets.only(
-            bottom: 5,
-            right: 3,
-            left: 3,
-          ),
-          child: CircleAvatar(
-            backgroundColor: mobileChatBoxColor,
-            radius: 24,
-            child: GestureDetector(
-              onTap: sendTextMessage,
-              child: Icon(
-                isShowSendButton ? Icons.send_rounded : Icons.mic,
-                color: whiteColor,
+        isShowEmoji ?  SizedBox(
+              height: 310,
+              child: EmojiPicker(
+                onEmojiSelected: (category, emoji) {
+                  setState(() {
+                    _messageController.text =
+                        _messageController.text + emoji.emoji;
+                  });
+                  if (!isShowSendButton) {
+                    setState(() {
+                      isShowSendButton=true;
+                    });
+                  }
+                },
               ),
-            ),
-          ),
-        )
+            ) :const SizedBox(),
       ],
     );
   }
