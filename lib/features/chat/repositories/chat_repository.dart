@@ -200,8 +200,9 @@ class ChatRepository {
         username: senderUser.name,
       );
     } catch (e) {
-      if (context.mounted)
+      if (context.mounted){
         showSnackBar(context: context, content: e.toString());
+        }
     }
   }
 
@@ -266,7 +267,47 @@ class ChatRepository {
         messageType: messageEnum,
       );
     } catch (e) {
-      if (context.mounted) showSnackBar(context: context, content: e.toString());
+      if (context.mounted) {showSnackBar(context: context, content: e.toString());}
+    }
+  }
+
+   void sendGIFMessage({
+    required BuildContext context,
+    required String gifUrl,
+    required String receiverUserId,
+    required UserModel senderUser,
+  }) async {
+    try {
+      var sendTime = DateTime.now();
+      UserModel receiverUserData;
+
+      var userDataMap =
+          await firestore.collection('users').doc(receiverUserId).get();
+      receiverUserData = UserModel.fromMap(userDataMap.data()!);
+
+      var messageId = const Uuid().v1();
+
+      _saveDataToContactsSubCollection(
+        senderUser,
+        receiverUserData,
+        'GIF',
+        sendTime,
+        receiverUserId,
+      );
+
+      _saveMessageToSubCollection(
+        receiverUserId: receiverUserId,
+        text: gifUrl,
+        sendTime: sendTime,
+        messageType: MessageEnum.gif,
+        messageId: messageId,
+        receiverUsername: receiverUserData.name,
+        username: senderUser.name,
+      );
+    } catch (e) {
+      if (context.mounted){
+        showSnackBar(context: context, content: e.toString());
+        }
     }
   }
 }

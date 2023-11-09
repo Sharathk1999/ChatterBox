@@ -70,13 +70,23 @@ class _BottomCustomChatFieldState extends ConsumerState<BottomCustomChatField> {
     }
   }
 
+  void selectGIF() async {
+    final gif = await pickGIF(context);
+    if (gif != null) {
+      if (context.mounted) {
+        ref
+            .read(chatControllerProvider)
+            .sendGIFMessage(context, gif.url, widget.receiverUserId);
+      }
+    }
+  }
+
   void hideEmoji() {
     setState(() {
       isShowEmoji = false;
     });
   }
 
-  
   void showEmoji() {
     setState(() {
       isShowEmoji = true;
@@ -86,11 +96,11 @@ class _BottomCustomChatFieldState extends ConsumerState<BottomCustomChatField> {
   void showKeyboard() => focusNode.requestFocus();
   void hideKeyboard() => focusNode.unfocus;
 
-  void toggleEmojiKeyboard(){
+  void toggleEmojiKeyboard() {
     if (isShowEmoji) {
       showKeyboard();
       hideEmoji();
-    }else{
+    } else {
       hideKeyboard();
       showEmoji();
     }
@@ -144,7 +154,7 @@ class _BottomCustomChatFieldState extends ConsumerState<BottomCustomChatField> {
                             ),
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: selectGIF,
                             icon: const Icon(
                               Icons.gif_box_rounded,
                               color: Colors.grey,
@@ -209,25 +219,26 @@ class _BottomCustomChatFieldState extends ConsumerState<BottomCustomChatField> {
                 ),
               ),
             ),
-          
           ],
         ),
-        isShowEmoji ?  SizedBox(
-              height: 310,
-              child: EmojiPicker(
-                onEmojiSelected: (category, emoji) {
-                  setState(() {
-                    _messageController.text =
-                        _messageController.text + emoji.emoji;
-                  });
-                  if (!isShowSendButton) {
+        isShowEmoji
+            ? SizedBox(
+                height: 310,
+                child: EmojiPicker(
+                  onEmojiSelected: (category, emoji) {
                     setState(() {
-                      isShowSendButton=true;
+                      _messageController.text =
+                          _messageController.text + emoji.emoji;
                     });
-                  }
-                },
-              ),
-            ) :const SizedBox(),
+                    if (!isShowSendButton) {
+                      setState(() {
+                        isShowSendButton = true;
+                      });
+                    }
+                  },
+                ),
+              )
+            : const SizedBox(),
       ],
     );
   }

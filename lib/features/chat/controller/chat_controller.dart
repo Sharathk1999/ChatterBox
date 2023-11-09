@@ -8,13 +8,10 @@ import 'package:chatterbox/models/message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final chatControllerProvider = Provider(
-  (ref){
-    final chatRepository = ref.watch(chatRepositoryProvider);
-    return ChatController(chatRepository: chatRepository, ref: ref);
-  }
-);
-
+final chatControllerProvider = Provider((ref) {
+  final chatRepository = ref.watch(chatRepositoryProvider);
+  return ChatController(chatRepository: chatRepository, ref: ref);
+});
 
 class ChatController {
   final ChatRepository chatRepository;
@@ -25,12 +22,11 @@ class ChatController {
     required this.ref,
   });
 
-
-  Stream<List<ChatContactModel>> chatCOntacts(){
+  Stream<List<ChatContactModel>> chatCOntacts() {
     return chatRepository.getChatContacts();
   }
 
-  Stream<List<MessageModel>> chatStream(String receiverUserId){
+  Stream<List<MessageModel>> chatStream(String receiverUserId) {
     return chatRepository.getChatStream(receiverUserId);
   }
 
@@ -46,8 +42,8 @@ class ChatController {
         );
   }
 
-  void sendFileMessage(
-      BuildContext context, File file, String receiverUserId, MessageEnum messageEnum) {
+  void sendFileMessage(BuildContext context, File file, String receiverUserId,
+      MessageEnum messageEnum) {
     ref.read(userDataAuthProvider).whenData(
           (value) => chatRepository.sendFileMessage(
             context: context,
@@ -60,5 +56,21 @@ class ChatController {
         );
   }
 
-
+  void sendGIFMessage(
+    BuildContext context,
+    String gifUrl,
+    String receiverUserId,
+  ) {
+    int gifUrlPartIndex = gifUrl.lastIndexOf('-') + 1;
+    String gifUrlPart = gifUrl.substring(gifUrlPartIndex);
+    String newgifUrl = 'https://i.giphy.com/media/$gifUrlPart/200.gif';
+    ref
+        .read(userDataAuthProvider)
+        .whenData((value) => chatRepository.sendGIFMessage(
+              context: context,
+              gifUrl: newgifUrl,
+              receiverUserId: receiverUserId,
+              senderUser: value!,
+            ));
+  }
 }
