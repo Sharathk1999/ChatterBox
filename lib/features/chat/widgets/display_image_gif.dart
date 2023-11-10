@@ -16,8 +16,27 @@ class DisplayImageGIF extends StatelessWidget {
             message,
             style: const TextStyle(fontSize: 16, color: whiteColor),
           )
-        : type == MessageEnum.video
-            ? VideoPlayerWidget(videoUrl: message,)
-            : type == MessageEnum.gif ? CachedNetworkImage(imageUrl: message) : CachedNetworkImage(imageUrl: message);
+        : type == MessageEnum.audio
+            ? IconButton(
+              constraints: const BoxConstraints(
+                minWidth: 200,
+          
+              ),
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.play_circle_fill_rounded,
+                ),
+              )
+            : type == MessageEnum.video
+                ? VideoPlayerWidget(
+                    videoUrl: message,
+                  )
+                : type == MessageEnum.gif
+                    ? CachedNetworkImage(
+                        imageUrl: message,
+                      )
+                    : CachedNetworkImage(
+                        imageUrl: message,
+                      );
   }
 }

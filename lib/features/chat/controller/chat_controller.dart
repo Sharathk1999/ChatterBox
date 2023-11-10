@@ -55,7 +55,6 @@ class ChatController {
           ),
         );
   }
-
   void sendGIFMessage(
     BuildContext context,
     String gifUrl,
