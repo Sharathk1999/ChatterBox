@@ -8,6 +8,7 @@ class ReplyMessagePreview extends ConsumerWidget {
   const ReplyMessagePreview({super.key});
 
   void cancelReply(WidgetRef ref){
+    // ignore: deprecated_member_use
     ref.watch(messageReplyProvider.state).update((state) => null);
   }
 

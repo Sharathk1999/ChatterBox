@@ -33,6 +33,7 @@ class _ChatListState extends ConsumerState<ChatList> {
     bool isMe,
     MessageEnum messageEnum,
   ){
+    // ignore: deprecated_member_use
     ref.read(messageReplyProvider.state).update((state) => MessageReply(message, isMe, messageEnum,),);
   }
 

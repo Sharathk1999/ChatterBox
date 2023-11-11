@@ -43,6 +43,7 @@ class ChatController {
             messageReply: messageReply
           ),
         );
+          // ignore: deprecated_member_use
           ref.read(messageReplyProvider.state).update((state) => null);
   }
 
@@ -61,6 +62,7 @@ class ChatController {
             messageReply: messageReply
           ),
         );
+        // ignore: deprecated_member_use
         ref.read(messageReplyProvider.state).update((state) => null);
   }
   void sendGIFMessage(
@@ -82,6 +84,7 @@ class ChatController {
               senderUser: value!,
               messageReply: messageReply
             ));
+              // ignore: deprecated_member_use
               ref.read(messageReplyProvider.state).update((state) => null);
   }
 }
