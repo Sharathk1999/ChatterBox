@@ -15,6 +15,7 @@ class MobileChatScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: appBarColor,
         title: StreamBuilder(

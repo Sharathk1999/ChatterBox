@@ -1,5 +1,4 @@
 
-
 import 'package:chatterbox/common/enums/message_enum.dart';
 
 class MessageModel {
@@ -9,6 +8,9 @@ class MessageModel {
   final MessageEnum messageType;
   final DateTime sendTime;
   final bool isSeen;
+  final String repliedMessage;
+  final String repliedTo;
+  final MessageEnum repliedMessageType;
 
   MessageModel({
     required this.senderId,
@@ -17,6 +19,9 @@ class MessageModel {
     required this.messageType,
     required this.sendTime,
     required this.isSeen,
+    required this.repliedMessage,
+    required this.repliedTo,
+    required this.repliedMessageType,
   });
 
   Map<String, dynamic> toMap() {
@@ -27,6 +32,9 @@ class MessageModel {
       'messageType': messageType.type,
       'sendTime': sendTime.millisecondsSinceEpoch,
       'isSeen': isSeen,
+      'repliedMessage': repliedMessage,
+      'repliedTo': repliedTo,
+      'repliedMessageType': repliedMessageType.type
     };
   }
 
@@ -35,11 +43,16 @@ class MessageModel {
       senderId: map['senderId'] as String,
       receiverId: map['receiverId'] as String,
       text: map['text'] as String,
-      messageType:(map['messageType'] as String).toEnum(),
-      sendTime: DateTime.fromMillisecondsSinceEpoch(map['sendTime']),
+      messageType: (map['messageType'] as String).toEnum(),
+      sendTime: DateTime.fromMillisecondsSinceEpoch(map['sendTime'] as int),
       isSeen: map['isSeen'] as bool,
+      repliedMessage: map['repliedMessage'] as String,
+      repliedTo: map['repliedTo'] as String,
+      repliedMessageType: (map['repliedMessageType'] as String).toEnum(),
     );
   }
 
 
+
+ 
 }

@@ -1,3 +1,5 @@
+import 'package:chatterbox/common/enums/message_enum.dart';
+import 'package:chatterbox/common/providers/message_reply_provider.dart';
 import 'package:chatterbox/common/widgets/loader.dart';
 import 'package:chatterbox/features/chat/controller/chat_controller.dart';
 import 'package:chatterbox/features/chat/widgets/my_message_card.dart';
@@ -26,6 +28,14 @@ class _ChatListState extends ConsumerState<ChatList> {
     messageScrollController.dispose();
   }
 
+  void onMessageReply(
+    String message,
+    bool isMe,
+    MessageEnum messageEnum,
+  ){
+    ref.read(messageReplyProvider.state).update((state) => MessageReply(message, isMe, messageEnum,),);
+  }
+
   @override
   Widget build(BuildContext context) {
       return StreamBuilder<List<MessageModel>>(
@@ -49,12 +59,20 @@ class _ChatListState extends ConsumerState<ChatList> {
                 message: messageData.text,
                 date: sendTime,
                 type: messageData.messageType,
+                repliedText: messageData.repliedMessage,
+                username: messageData.repliedTo,
+                replyMessageType: messageData.repliedMessageType,
+                onLeftSwipe: () => onMessageReply(messageData.text, true, messageData.messageType),
               );
             }
             return SenderMessageCard(
               message: messageData.text,
               date: sendTime,
               type: messageData.messageType,
+                    username: messageData.repliedTo,
+                replyMessageType: messageData.repliedMessageType,
+                onRightSwipe: () => onMessageReply(messageData.text, false, messageData.messageType),
+                repliedText: messageData.repliedMessage,
             );
           },
         );

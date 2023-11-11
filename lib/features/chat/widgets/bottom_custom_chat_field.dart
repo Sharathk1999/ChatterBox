@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:chatterbox/colors.dart';
 import 'package:chatterbox/common/enums/message_enum.dart';
+import 'package:chatterbox/common/providers/message_reply_provider.dart';
 import 'package:chatterbox/common/utils/utils.dart';
 import 'package:chatterbox/features/chat/controller/chat_controller.dart';
+import 'package:chatterbox/features/chat/widgets/reply_message_preview.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -155,8 +157,11 @@ class _BottomCustomChatFieldState extends ConsumerState<BottomCustomChatField> {
 
   @override
   Widget build(BuildContext context) {
+    final messageReply = ref.watch(messageReplyProvider);
+    final isShowMessageReply = messageReply != null; 
     return Column(
       children: [
+        isShowMessageReply ? const ReplyMessagePreview() : const SizedBox(),
         Row(
           children: [
             Expanded(

@@ -49,6 +49,7 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   path_provider: ^2.1.1
   permission_handler: ^11.0.1
+  swipe_to: ^1.0.2
   uuid: any
   video_player: ^2.8.1
 
