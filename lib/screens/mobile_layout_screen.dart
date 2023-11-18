@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:chatterbox/colors.dart';
+import 'package:chatterbox/common/utils/utils.dart';
 import 'package:chatterbox/features/auth/controller/auth_controller.dart';
 import 'package:chatterbox/features/chat/widgets/contacts_list.dart';
 import 'package:chatterbox/features/contacts_select/screens/contacts_select_screen.dart';
+import 'package:chatterbox/features/stories/screens/stories_confirm_screen.dart';
+import 'package:chatterbox/features/stories/screens/stories_contact_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,11 +18,13 @@ class MobileLayoutScreen extends ConsumerStatefulWidget {
   ConsumerState<MobileLayoutScreen> createState() => _MobileLayoutScreenState();
 }
 
-class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen> with WidgetsBindingObserver {
+class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen> with WidgetsBindingObserver, TickerProviderStateMixin {
+  late TabController tabController;
 
   @override
   void initState() {
     super.initState();
+    tabController = TabController(length: 3, vsync: this);
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -70,6 +77,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen> with Wi
             ),
           ],
           bottom: TabBar(
+            controller: tabController,
             indicator: BoxDecoration(
               color: Colors.black54,
               borderRadius: BorderRadius.circular(50),
@@ -96,10 +104,24 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen> with Wi
             ],
           ),
         ),
-        body: const ContactsList(),
+        body: TabBarView(
+          controller: tabController,
+          children:const [
+           ContactsList(),
+          StoriesContactScreen(),
+          Text('Connect')
+        ],),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, ContactsSelectScreen.routeName);
+          onPressed: ()async {
+            if (tabController.index == 0) {
+                          Navigator.pushNamed(context, ContactsSelectScreen.routeName);
+
+            }else{
+              File? pickedImage = await pickImageFromGallery(context);
+              if (pickedImage != null) {
+            if(context.mounted)    Navigator.pushNamed(context, StoriesConfirmScreen.routeName, arguments: pickedImage);
+              }
+            }
           },
           backgroundColor: tabColor,
           child: const Icon(

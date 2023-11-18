@@ -1,10 +1,13 @@
 
 
+import 'dart:io';
+
 import 'package:chatterbox/common/widgets/error_display.dart';
 import 'package:chatterbox/features/auth/screens/login_screen.dart';
 import 'package:chatterbox/features/auth/screens/otp_screen.dart';
 import 'package:chatterbox/features/auth/screens/user_info_screen.dart';
 import 'package:chatterbox/features/contacts_select/screens/contacts_select_screen.dart';
+import 'package:chatterbox/features/stories/screens/stories_confirm_screen.dart';
 import 'package:chatterbox/screens/mobile_chat_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -42,6 +45,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         builder: (context) =>  MobileChatScreen(
           name: name,
           uid: uid,
+        ),
+      );
+
+       case StoriesConfirmScreen.routeName:
+             final file = settings.arguments as File;
+      return MaterialPageRoute(
+        builder: (context) =>  StoriesConfirmScreen(
+          file: file,
         ),
       );
 
