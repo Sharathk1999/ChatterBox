@@ -78,7 +78,7 @@ class ChatRepository {
             document.data(),
           ),
         );
-      }
+      } 
       return messages;
     });
   }
@@ -140,6 +140,7 @@ class ChatRepository {
     final message = MessageModel(
       senderId: auth.currentUser!.uid,
       receiverId: receiverUserId,
+      messageId: messageId,
       text: text,
       messageType: messageType,
       sendTime: sendTime,
@@ -243,6 +244,8 @@ class ChatRepository {
           await firestore.collection('users').doc(receiverUserId).get();
       receiverUserData = UserModel.fromMap(userDataMap.data()!);
 
+      
+
       String contactsMessage;
 
       switch (messageEnum) {
@@ -328,6 +331,36 @@ class ChatRepository {
       if (context.mounted){
         showSnackBar(context: context, content: e.toString());
         }
+    }
+  }
+
+  void setChatMessageSeen(
+    BuildContext context,
+    String receiverUserId,
+    String messageId,
+  )async{
+    try {
+      //message sender
+    await firestore
+        .collection('users')
+        .doc(auth.currentUser!.uid)
+        .collection('chats')
+        .doc(receiverUserId)
+        .collection('messages')
+        .doc(messageId)
+        .update({'isSeen':true});
+
+    //message receiver
+    await firestore
+        .collection('users')
+        .doc(receiverUserId)
+        .collection('chats')
+        .doc(auth.currentUser!.uid)
+        .collection('messages')
+        .doc(messageId)
+        .update({'isSeen':true});
+    } catch (e) {
+     if(context.mounted) showSnackBar(context: context, content: e.toString());
     }
   }
 }

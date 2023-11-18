@@ -4,6 +4,7 @@ import 'package:chatterbox/common/enums/message_enum.dart';
 class MessageModel {
   final String senderId;
   final String receiverId;
+  final String messageId;
   final String text;
   final MessageEnum messageType;
   final DateTime sendTime;
@@ -15,6 +16,7 @@ class MessageModel {
   MessageModel({
     required this.senderId,
     required this.receiverId,
+    required  this.messageId,
     required this.text,
     required this.messageType,
     required this.sendTime,
@@ -28,6 +30,7 @@ class MessageModel {
     return <String, dynamic>{
       'senderId': senderId,
       'receiverId': receiverId,
+      'messageId':messageId,
       'text': text,
       'messageType': messageType.type,
       'sendTime': sendTime.millisecondsSinceEpoch,
@@ -42,6 +45,7 @@ class MessageModel {
     return MessageModel(
       senderId: map['senderId'] as String,
       receiverId: map['receiverId'] as String,
+      messageId: map['messageId'] ?? '',
       text: map['text'] as String,
       messageType: (map['messageType'] as String).toEnum(),
       sendTime: DateTime.fromMillisecondsSinceEpoch(map['sendTime'] as int),
