@@ -33,66 +33,64 @@ class ChatController {
 
   void sendTextMessage(
       BuildContext context, String text, String receiverUserId) {
-        final messageReply = ref.read(messageReplyProvider);
+    final messageReply = ref.read(messageReplyProvider);
     ref.read(userDataAuthProvider).whenData(
           (value) => chatRepository.sendTextMessage(
-            context: context,
-            text: text,
-            receiverUserId: receiverUserId,
-            senderUser: value!,
-            messageReply: messageReply
-          ),
+              context: context,
+              text: text,
+              receiverUserId: receiverUserId,
+              senderUser: value!,
+              messageReply: messageReply),
         );
-          // ignore: deprecated_member_use
-          ref.read(messageReplyProvider.state).update((state) => null);
+    // ignore: deprecated_member_use
+    ref.read(messageReplyProvider.state).update((state) => null);
   }
 
   void sendFileMessage(BuildContext context, File file, String receiverUserId,
       MessageEnum messageEnum) {
-                final messageReply = ref.read(messageReplyProvider);
+    final messageReply = ref.read(messageReplyProvider);
 
     ref.read(userDataAuthProvider).whenData(
           (value) => chatRepository.sendFileMessage(
-            context: context,
-            file: file,
-            receiverUserId: receiverUserId,
-            senderUserData: value!,
-            messageEnum: messageEnum,
-            ref: ref,
-            messageReply: messageReply
-          ),
+              context: context,
+              file: file,
+              receiverUserId: receiverUserId,
+              senderUserData: value!,
+              messageEnum: messageEnum,
+              ref: ref,
+              messageReply: messageReply),
         );
-        // ignore: deprecated_member_use
-        ref.read(messageReplyProvider.state).update((state) => null);
+    // ignore: deprecated_member_use
+    ref.read(messageReplyProvider.state).update((state) => null);
   }
+
   void sendGIFMessage(
     BuildContext context,
     String gifUrl,
     String receiverUserId,
   ) {
-            final messageReply = ref.read(messageReplyProvider);
+    final messageReply = ref.read(messageReplyProvider);
 
     int gifUrlPartIndex = gifUrl.lastIndexOf('-') + 1;
     String gifUrlPart = gifUrl.substring(gifUrlPartIndex);
     String newgifUrl = 'https://i.giphy.com/media/$gifUrlPart/200.gif';
-    ref
-        .read(userDataAuthProvider)
-        .whenData((value) => chatRepository.sendGIFMessage(
-              context: context,
-              gifUrl: newgifUrl,
-              receiverUserId: receiverUserId,
-              senderUser: value!,
-              messageReply: messageReply
-            ));
-              // ignore: deprecated_member_use
-              ref.read(messageReplyProvider.state).update((state) => null);
+    ref.read(userDataAuthProvider).whenData((value) =>
+        chatRepository.sendGIFMessage(
+            context: context,
+            gifUrl: newgifUrl,
+            receiverUserId: receiverUserId,
+            senderUser: value!,
+            messageReply: messageReply));
+    // ignore: deprecated_member_use
+    ref.read(messageReplyProvider.state).update((state) => null);
   }
 
   void setChatMessageSeen(
-    BuildContext context,
-    String receiverUserId,
-    String messageId
-  ){
-     chatRepository.setChatMessageSeen(context, receiverUserId, messageId);
+      BuildContext context, String receiverUserId, String messageId) {
+    chatRepository.setChatMessageSeen(
+      context,
+      receiverUserId,
+      messageId,
+    );
   }
 }
