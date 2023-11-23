@@ -15,7 +15,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 class BottomCustomChatField extends ConsumerStatefulWidget {
   final String receiverUserId;
-  final bool  isGroupChat;
+  final bool isGroupChat;
   const BottomCustomChatField({
     super.key,
     required this.receiverUserId,
@@ -58,6 +58,7 @@ class _BottomCustomChatFieldState extends ConsumerState<BottomCustomChatField> {
             context,
             _messageController.text.trim(),
             widget.receiverUserId,
+            widget.isGroupChat,
           );
 
       _messageController.clear();
@@ -96,6 +97,7 @@ class _BottomCustomChatFieldState extends ConsumerState<BottomCustomChatField> {
           file,
           widget.receiverUserId,
           messageEnum,
+          widget.isGroupChat,
         );
   }
 
@@ -117,9 +119,12 @@ class _BottomCustomChatFieldState extends ConsumerState<BottomCustomChatField> {
     final gif = await pickGIF(context);
     if (gif != null) {
       if (context.mounted) {
-        ref
-            .read(chatControllerProvider)
-            .sendGIFMessage(context, gif.url, widget.receiverUserId);
+        ref.read(chatControllerProvider).sendGIFMessage(
+              context,
+              gif.url,
+              widget.receiverUserId,
+              widget.isGroupChat,
+            );
       }
     }
   }
@@ -160,7 +165,7 @@ class _BottomCustomChatFieldState extends ConsumerState<BottomCustomChatField> {
   @override
   Widget build(BuildContext context) {
     final messageReply = ref.watch(messageReplyProvider);
-    final isShowMessageReply = messageReply != null; 
+    final isShowMessageReply = messageReply != null;
     return Column(
       children: [
         isShowMessageReply ? const ReplyMessagePreview() : const SizedBox(),
@@ -261,7 +266,11 @@ class _BottomCustomChatFieldState extends ConsumerState<BottomCustomChatField> {
                 child: GestureDetector(
                   onTap: sendTextMessage,
                   child: Icon(
-                    isShowSendButton ? Icons.send_rounded : isRecording ? Icons.close : Icons.mic,
+                    isShowSendButton
+                        ? Icons.send_rounded
+                        : isRecording
+                            ? Icons.close
+                            : Icons.mic,
                     color: whiteColor,
                   ),
                 ),

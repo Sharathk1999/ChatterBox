@@ -93,11 +93,14 @@ class MyMessageCard extends StatelessWidget {
                   right: 10,
                   child: Row(
                     children: [
-                      Text(
-                        date,
-                        style: const TextStyle(
-                          fontSize: 13,
-                          color: Colors.white60,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Text(
+                          date,
+                          style: const TextStyle(
+                            fontSize: 13,
+                            color: Colors.white60,
+                          ),
                         ),
                       ),
                       const SizedBox(

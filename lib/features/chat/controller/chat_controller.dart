@@ -41,7 +41,11 @@ class ChatController {
   }
 
   void sendTextMessage(
-      BuildContext context, String text, String receiverUserId) {
+    BuildContext context,
+    String text,
+    String receiverUserId,
+    bool isGroupChat,
+  ) {
     final messageReply = ref.read(messageReplyProvider);
     ref.read(userDataAuthProvider).whenData(
           (value) => chatRepository.sendTextMessage(
@@ -49,14 +53,20 @@ class ChatController {
               text: text,
               receiverUserId: receiverUserId,
               senderUser: value!,
-              messageReply: messageReply),
+              messageReply: messageReply,
+              isGroupChat: isGroupChat,),
         );
     // ignore: deprecated_member_use
     ref.read(messageReplyProvider.state).update((state) => null);
   }
 
-  void sendFileMessage(BuildContext context, File file, String receiverUserId,
-      MessageEnum messageEnum) {
+  void sendFileMessage(
+    BuildContext context,
+    File file,
+    String receiverUserId,
+    MessageEnum messageEnum,
+    bool isGroupChat,
+  ) {
     final messageReply = ref.read(messageReplyProvider);
 
     ref.read(userDataAuthProvider).whenData(
@@ -67,7 +77,8 @@ class ChatController {
               senderUserData: value!,
               messageEnum: messageEnum,
               ref: ref,
-              messageReply: messageReply),
+              messageReply: messageReply,
+              isGroupChat: isGroupChat,),
         );
     // ignore: deprecated_member_use
     ref.read(messageReplyProvider.state).update((state) => null);
@@ -77,6 +88,7 @@ class ChatController {
     BuildContext context,
     String gifUrl,
     String receiverUserId,
+    bool isGroupChat,
   ) {
     final messageReply = ref.read(messageReplyProvider);
 
@@ -89,7 +101,8 @@ class ChatController {
             gifUrl: newgifUrl,
             receiverUserId: receiverUserId,
             senderUser: value!,
-            messageReply: messageReply));
+            messageReply: messageReply,
+            isGroupChat: isGroupChat,));
     // ignore: deprecated_member_use
     ref.read(messageReplyProvider.state).update((state) => null);
   }
