@@ -5,6 +5,7 @@ import 'package:chatterbox/common/utils/utils.dart';
 import 'package:chatterbox/features/auth/controller/auth_controller.dart';
 import 'package:chatterbox/features/chat/widgets/contacts_list.dart';
 import 'package:chatterbox/features/contacts_select/screens/contacts_select_screen.dart';
+import 'package:chatterbox/features/group/screens/group_create_screen.dart';
 import 'package:chatterbox/features/stories/screens/stories_confirm_screen.dart';
 import 'package:chatterbox/features/stories/screens/stories_contact_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,8 @@ class MobileLayoutScreen extends ConsumerStatefulWidget {
   ConsumerState<MobileLayoutScreen> createState() => _MobileLayoutScreenState();
 }
 
-class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen> with WidgetsBindingObserver, TickerProviderStateMixin {
+class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
+    with WidgetsBindingObserver, TickerProviderStateMixin {
   late TabController tabController;
 
   @override
@@ -49,6 +51,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen> with Wi
         break;
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -71,9 +74,21 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen> with Wi
               icon: const Icon(Icons.search, color: Colors.grey),
               onPressed: () {},
             ),
-            IconButton(
-              icon: const Icon(Icons.more_vert, color: Colors.grey),
-              onPressed: () {},
+            PopupMenuButton(
+              icon: const Icon(Icons.more_vert_rounded),
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  child:  Text(
+                    'Create Group',
+                    style: GoogleFonts.quicksand(
+                       color: whiteColor,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(context, CreateGroupScreen.routeName);
+                  },
+                ),
+              ],
             ),
           ],
           bottom: TabBar(
@@ -82,11 +97,10 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen> with Wi
               color: Colors.black54,
               borderRadius: BorderRadius.circular(50),
               // image: DecorationImage(image: AssetImage('assets/backgroundImage.png',),fit: BoxFit.cover)
-            ),      
+            ),
             indicatorColor: tabColor,
             indicatorWeight: 4,
             labelColor: Colors.white60,
-            
             unselectedLabelColor: Colors.white30,
             labelStyle: GoogleFonts.quicksand(
               fontWeight: FontWeight.bold,
@@ -106,21 +120,22 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen> with Wi
         ),
         body: TabBarView(
           controller: tabController,
-          children:const [
-           ContactsList(),
-          StoriesContactScreen(),
-          Text('Connect')
-        ],),
+          children: const [
+            ContactsList(),
+            StoriesContactScreen(),
+            Text('Connect')
+          ],
+        ),
         floatingActionButton: FloatingActionButton(
-          onPressed: ()async {
+          onPressed: () async {
             if (tabController.index == 0) {
               Navigator.pushNamed(context, ContactsSelectScreen.routeName);
-
-            }else{
+            } else {
               File? pickedImage = await pickImageFromGallery(context);
               if (pickedImage != null) {
-           // ignore: use_build_context_synchronously
-           Navigator.pushNamed(context, StoriesConfirmScreen.routeName, arguments: pickedImage);
+                // ignore: use_build_context_synchronously
+                Navigator.pushNamed(context, StoriesConfirmScreen.routeName,
+                    arguments: pickedImage);
               }
             }
           },
