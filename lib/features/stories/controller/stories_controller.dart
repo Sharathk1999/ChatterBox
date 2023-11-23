@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:chatterbox/features/auth/controller/auth_controller.dart';
 import 'package:chatterbox/features/stories/repository/stories_repository.dart';
+import 'package:chatterbox/models/stories_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -26,9 +27,14 @@ class StoriesController {
         username: value!.name,
         profilePic: value.profilePic,
         phoneNumber: value.phoneNumber,
-        statusImage: file,
+        storieImage: file,
         context: context,
       );
     });
+  }
+
+  Future<List<StoriesModel>> getStories(BuildContext context)async{
+    List<StoriesModel> stories = await storiesRepository.getStories(context);
+    return stories;
   }
 }

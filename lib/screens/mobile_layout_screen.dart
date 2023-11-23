@@ -114,12 +114,13 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen> with Wi
         floatingActionButton: FloatingActionButton(
           onPressed: ()async {
             if (tabController.index == 0) {
-                          Navigator.pushNamed(context, ContactsSelectScreen.routeName);
+              Navigator.pushNamed(context, ContactsSelectScreen.routeName);
 
             }else{
               File? pickedImage = await pickImageFromGallery(context);
               if (pickedImage != null) {
-            if(context.mounted)    Navigator.pushNamed(context, StoriesConfirmScreen.routeName, arguments: pickedImage);
+           // ignore: use_build_context_synchronously
+           Navigator.pushNamed(context, StoriesConfirmScreen.routeName, arguments: pickedImage);
               }
             }
           },

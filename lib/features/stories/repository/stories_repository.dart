@@ -6,6 +6,7 @@ import 'package:chatterbox/models/stories_model.dart';
 import 'package:chatterbox/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,7 +34,7 @@ class StoriesRepository {
     required String username,
     required String profilePic,
     required String phoneNumber,
-    required File statusImage,
+    required File storieImage,
     required BuildContext context,
   }) async {
     try {
@@ -43,7 +44,7 @@ class StoriesRepository {
           .read(firebaseCommonStorageRepositoryProvider)
           .storeFileToFirebase(
             '/stories/$storieId$uid',
-            statusImage,
+            storieImage,
           );
       List<Contact> contacts = [];
 
@@ -113,8 +114,59 @@ class StoriesRepository {
           .doc(storieId)
           .set(storiesModel.toMap());
     } catch (e) {
-      
-        if (context.mounted) showSnackBar(context: context, content: e.toString());
+      if (context.mounted)
+        showSnackBar(context: context, content: e.toString());
     }
+  }
+
+  //to display status
+
+  Future<List<StoriesModel>> getStories(BuildContext context) async {
+    List<StoriesModel> storiesData = [];
+    try {
+      List<Contact> contacts = [];
+
+      if (await FlutterContacts.requestPermission()) {
+        contacts = await FlutterContacts.getContacts(withProperties: true);
+      }
+
+      for (int i = 0; i < contacts.length; i++) {
+        var storiesSnapshot = await firestore
+            .collection('stories')
+            .where(
+              'phoneNumber',
+              isEqualTo: contacts[i].phones[0].number.replaceAll(
+                    ' ',
+                    '',
+                  ),
+            )
+            .where(
+              'createdAt',
+              isGreaterThan: DateTime.now()
+                  .subtract(
+                    const Duration(
+                      hours: 24,
+                    ),
+                  )
+                  .millisecondsSinceEpoch,
+            )
+            .get();
+
+        for (var tempData in storiesSnapshot.docs) {
+          StoriesModel tempStories = StoriesModel.fromMap(tempData.data());
+          //if it contains my uid
+          if (tempStories.whoCanSee
+              .contains(auth.currentUser!.uid.toString())) {
+            storiesData.add(tempStories);
+          }
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) print('hi =>$e');
+
+      // ignore: use_build_context_synchronously
+      showSnackBar(context: context, content: e.toString());
+    }
+    return storiesData;
   }
 }

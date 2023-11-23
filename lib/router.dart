@@ -8,6 +8,8 @@ import 'package:chatterbox/features/auth/screens/otp_screen.dart';
 import 'package:chatterbox/features/auth/screens/user_info_screen.dart';
 import 'package:chatterbox/features/contacts_select/screens/contacts_select_screen.dart';
 import 'package:chatterbox/features/stories/screens/stories_confirm_screen.dart';
+import 'package:chatterbox/features/stories/screens/stories_screen.dart';
+import 'package:chatterbox/models/stories_model.dart';
 import 'package:chatterbox/screens/mobile_chat_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -53,6 +55,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) =>  StoriesConfirmScreen(
           file: file,
+        ),
+      );
+
+       case StoriesScreen.routeName:
+             final stories = settings.arguments as StoriesModel;
+      return MaterialPageRoute(
+        builder: (context) =>  StoriesScreen(
+          stories: stories,
         ),
       );
 
