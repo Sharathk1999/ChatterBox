@@ -5,6 +5,7 @@ class GroupModel {
   final String groupProfilePic;
   final String senderId;
   final List<String> membersUid;
+  final DateTime sendTime;
   GroupModel({
     required this.name,
     required this.groupId,
@@ -12,6 +13,7 @@ class GroupModel {
     required this.groupProfilePic,
     required this.senderId,
     required this.membersUid,
+    required this.sendTime,
   });
 
   Map<String, dynamic> toMap() {
@@ -22,6 +24,7 @@ class GroupModel {
       'groupProfilePic': groupProfilePic,
       'senderId': senderId,
       'membersUid': membersUid,
+       'sendTime': sendTime.millisecondsSinceEpoch
     };
   }
 
@@ -34,6 +37,7 @@ class GroupModel {
         senderId: map['senderId'] ?? "",
         membersUid: List<String>.from(
           (map['membersUid']),
-        ));
+        ),
+         sendTime: DateTime.fromMillisecondsSinceEpoch(map['sendTime']),);
   }
 }

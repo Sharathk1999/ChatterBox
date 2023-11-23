@@ -5,6 +5,7 @@ import 'package:chatterbox/common/providers/message_reply_provider.dart';
 import 'package:chatterbox/features/auth/controller/auth_controller.dart';
 import 'package:chatterbox/features/chat/repositories/chat_repository.dart';
 import 'package:chatterbox/models/chat_contact_model.dart';
+import 'package:chatterbox/models/group_model.dart';
 import 'package:chatterbox/models/message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,8 +28,16 @@ class ChatController {
     return chatRepository.getChatContacts();
   }
 
+  Stream<List<GroupModel>> chatGroups() {
+    return chatRepository.getChatGroups();
+  }
+
   Stream<List<MessageModel>> chatStream(String receiverUserId) {
     return chatRepository.getChatStream(receiverUserId);
+  }
+
+  Stream<List<MessageModel>> groupChatStream(String groupId) {
+    return chatRepository.getGroupChatStream(groupId);
   }
 
   void sendTextMessage(

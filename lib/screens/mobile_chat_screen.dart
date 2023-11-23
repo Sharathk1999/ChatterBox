@@ -10,7 +10,8 @@ class MobileChatScreen extends ConsumerWidget {
   static const String routeName = '/mobile-chat-screen';
   final String name;
   final String uid;
-  const MobileChatScreen({super.key, required this.name, required this.uid});
+  final bool isGroupChat;
+  const MobileChatScreen({super.key, required this.name, required this.uid, required this.isGroupChat,});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,7 +19,7 @@ class MobileChatScreen extends ConsumerWidget {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: appBarColor,
-        title: StreamBuilder(
+        title:isGroupChat ? Text(name): StreamBuilder(
           stream: ref.read(authControllerProvider).userDataById(uid),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -60,10 +61,12 @@ class MobileChatScreen extends ConsumerWidget {
            Expanded(
             child: ChatList(
               receiverUserId: uid,
+              isGroupChat : isGroupChat,
             ),
           ),
           BottomCustomChatField(
             receiverUserId: uid,
+             isGroupChat : isGroupChat,
           ),
         ],
       ),

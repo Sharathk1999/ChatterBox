@@ -5,6 +5,7 @@ import 'package:chatterbox/common/providers/message_reply_provider.dart';
 import 'package:chatterbox/common/repository/firebase_common_storage_repo.dart';
 import 'package:chatterbox/common/utils/utils.dart';
 import 'package:chatterbox/models/chat_contact_model.dart';
+import 'package:chatterbox/models/group_model.dart';
 import 'package:chatterbox/models/message.dart';
 import 'package:chatterbox/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -61,6 +62,30 @@ class ChatRepository {
     });
   }
 
+  
+  Stream<List<GroupModel>> getChatGroups() {
+    return firestore
+        .collection('groups')
+
+        .snapshots()
+        .map((event)  {
+      List<GroupModel> groups = [];
+      for (var document in event.docs) {
+        var group= GroupModel.fromMap(document.data());
+       if (group.membersUid.contains(auth.currentUser!.uid)) {
+         groups.add(
+          group
+        );
+       }
+
+        
+      }
+      return groups;
+    });
+  }
+
+
+
   Stream<List<MessageModel>> getChatStream(String receiverUserId) {
     return firestore
         .collection('users')
@@ -68,6 +93,26 @@ class ChatRepository {
         .collection('chats')
         .doc(receiverUserId)
         .collection('messages')
+        .orderBy('sendTime')
+        .snapshots()
+        .map((event) {
+      List<MessageModel> messages = [];
+      for (var document in event.docs) {
+        messages.add(
+          MessageModel.fromMap(
+            document.data(),
+          ),
+        );
+      } 
+      return messages;
+    });
+  }
+
+    Stream<List<MessageModel>> getGroupChatStream(String groupId) {
+    return firestore
+        .collection('groups')
+        .doc(groupId)
+        .collection('chats')
         .orderBy('sendTime')
         .snapshots()
         .map((event) {

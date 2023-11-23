@@ -13,7 +13,8 @@ import 'package:intl/intl.dart';
 
 class ChatList extends ConsumerStatefulWidget {
   final String receiverUserId;
-  const ChatList({required this.receiverUserId, super.key});
+  final bool  isGroupChat;
+  const ChatList({required this.receiverUserId,required this.isGroupChat,super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ChatListState();
@@ -46,7 +47,7 @@ class _ChatListState extends ConsumerState<ChatList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<MessageModel>>(
-        stream:
+        stream: widget.isGroupChat ?  ref.read(chatControllerProvider).groupChatStream(widget.receiverUserId):
             ref.read(chatControllerProvider).chatStream(widget.receiverUserId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

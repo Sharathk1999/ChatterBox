@@ -15,9 +15,11 @@ import 'package:permission_handler/permission_handler.dart';
 
 class BottomCustomChatField extends ConsumerStatefulWidget {
   final String receiverUserId;
+  final bool  isGroupChat;
   const BottomCustomChatField({
     super.key,
     required this.receiverUserId,
+    required this.isGroupChat,
   });
 
   @override
