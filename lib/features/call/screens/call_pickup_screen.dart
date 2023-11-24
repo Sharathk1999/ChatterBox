@@ -22,7 +22,7 @@ class CallPickUpScreen extends ConsumerWidget {
           CallModel call =
               CallModel.fromMap(snapshot.data!.data() as Map<String, dynamic>);
 
-          if (call.hasDialled) {
+          if (!call.hasDialled) {
             return Scaffold(
               body: Container(
                 alignment: Alignment.center,

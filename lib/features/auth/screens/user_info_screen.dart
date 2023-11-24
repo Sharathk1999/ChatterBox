@@ -87,16 +87,19 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
                     padding: const EdgeInsets.all(20),
                     child: TextField(
                       controller: nameController,
-                      decoration:  InputDecoration(
-                          hintText: 'Enter name',
-                          hintStyle: GoogleFonts.quicksand(
-                            color: whiteColor
-                          ),
-                          border:const OutlineInputBorder(
-                              borderRadius: BorderRadius.only(
+                      decoration: InputDecoration(
+                        hintText: 'Enter name',
+                        hintStyle: GoogleFonts.quicksand(color: whiteColor),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.only(
                             topRight: Radius.circular(18),
                             bottomLeft: Radius.circular(18),
-                          ))),
+                          ),
+                        ),
+                      ),
+                      style: GoogleFonts.quicksand(
+                        color: whiteColor,
+                      ),
                     ),
                   ),
                   IconButton(

@@ -20,16 +20,17 @@ class SelectContactsGroup extends ConsumerStatefulWidget {
 }
 
 class _SelectContactsGroupState extends ConsumerState<SelectContactsGroup> {
-  List<int> selectedContactsIndex = [];
+  Set<int> selectedContactsIndex = {};
 
   void selectContacts(int index, Contact contact) {
     if (selectedContactsIndex.contains(index)) {
-      selectedContactsIndex.removeAt(index);
+      selectedContactsIndex.remove(index);
     } else {
       selectedContactsIndex.add(index);
     }
-    setState(() {});
+    
     ref.read(selectedGroupContacts.state).update((state) => [...state,contact]);
+    setState(() {});
   }
 
 
@@ -44,6 +45,8 @@ class _SelectContactsGroupState extends ConsumerState<SelectContactsGroup> {
               final contact = contactList[index];
               return InkWell(
                 onTap: () {
+              print("the index is 🔥🔥🔥🔥=> $index");
+
                   selectContacts(index, contact);
                 },
                 child: Padding(
