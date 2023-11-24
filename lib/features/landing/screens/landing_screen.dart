@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LandingScreen extends StatelessWidget {
+  static const String routeName = '/landing-screen';
   const LandingScreen({super.key});
 
   void navToLoginScreen(BuildContext context){

@@ -6,6 +6,7 @@ import 'package:chatterbox/features/auth/screens/otp_screen.dart';
 import 'package:chatterbox/features/auth/screens/user_info_screen.dart';
 import 'package:chatterbox/features/contacts_select/screens/contacts_select_screen.dart';
 import 'package:chatterbox/features/group/screens/group_create_screen.dart';
+import 'package:chatterbox/features/landing/screens/landing_screen.dart';
 import 'package:chatterbox/features/stories/screens/stories_confirm_screen.dart';
 import 'package:chatterbox/features/stories/screens/stories_screen.dart';
 import 'package:chatterbox/models/stories_model.dart';
@@ -72,6 +73,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case CreateGroupScreen.routeName:
       return MaterialPageRoute(
         builder: (context) => const CreateGroupScreen(),
+      );
+
+      case LandingScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) => const LandingScreen(),
       );
 
     default:

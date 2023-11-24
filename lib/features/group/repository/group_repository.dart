@@ -56,21 +56,17 @@ class GroupRepository {
           .storeFileToFirebase('group/$groupId', profilePic);
 
       GroupModel group = GroupModel(
-        name: name,
-        groupId: groupId,
-        lastMessage: "",
-        groupProfilePic: profileUrl,
-        senderId: auth.currentUser!.uid,
-        membersUid: [auth.currentUser!.uid, ...uids],
-        sendTime: DateTime.now()
-      );
+          name: name,
+          groupId: groupId,
+          lastMessage: "",
+          groupProfilePic: profileUrl,
+          senderId: auth.currentUser!.uid,
+          membersUid: [auth.currentUser!.uid, ...uids],
+          sendTime: DateTime.now());
 
       await firestore.collection('groups').doc(groupId).set(group.toMap());
     } catch (e) {
-      showSnackBar(
-        context: context,
-        content: e.toString(),
-      );
+    if (context.mounted)    showSnackBar(context: context, content: e.toString());
     }
   }
 }

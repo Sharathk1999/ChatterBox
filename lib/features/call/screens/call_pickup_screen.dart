@@ -83,7 +83,7 @@ class CallPickUpScreen extends ConsumerWidget {
                       children: [
                         IconButton(
                           onPressed: () {},
-                          icon: Icon(
+                          icon:const Icon(
                             Icons.call_end_rounded,
                             color: Colors.red,
                           ),
@@ -93,7 +93,7 @@ class CallPickUpScreen extends ConsumerWidget {
                         const SizedBox(width: 35,),
                         IconButton(
                           onPressed: () {},
-                          icon: Icon(
+                          icon:const Icon(
                             Icons.call,
                             color: Colors.green,
                           ),

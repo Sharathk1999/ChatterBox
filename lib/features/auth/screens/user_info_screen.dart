@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:chatterbox/colors.dart';
 import 'package:chatterbox/common/utils/utils.dart';
 import 'package:chatterbox/features/auth/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class UserInfoScreen extends ConsumerStatefulWidget {
   static const String routeName = '/user-information';
@@ -85,9 +87,12 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
                     padding: const EdgeInsets.all(20),
                     child: TextField(
                       controller: nameController,
-                      decoration: const InputDecoration(
+                      decoration:  InputDecoration(
                           hintText: 'Enter name',
-                          border: OutlineInputBorder(
+                          hintStyle: GoogleFonts.quicksand(
+                            color: whiteColor
+                          ),
+                          border:const OutlineInputBorder(
                               borderRadius: BorderRadius.only(
                             topRight: Radius.circular(18),
                             bottomLeft: Radius.circular(18),

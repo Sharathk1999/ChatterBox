@@ -88,6 +88,17 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
                     Navigator.pushNamed(context, CreateGroupScreen.routeName);
                   },
                 ),
+                PopupMenuItem(
+                  child:  Text(
+                    'Logout',
+                    style: GoogleFonts.quicksand(
+                       color: whiteColor,
+                    ),
+                  ),
+                  onTap: () {
+                    ref.read(authControllerProvider).signOut(context);
+                  },
+                ),
               ],
             ),
           ],

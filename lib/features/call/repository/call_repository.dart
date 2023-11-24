@@ -13,8 +13,6 @@ final callRepositoryProvider = Provider(
   ),
 );
 
-
-
 class CallRepository {
   final FirebaseFirestore firestore;
   final FirebaseAuth auth;
@@ -24,7 +22,8 @@ class CallRepository {
     required this.auth,
   });
 
-  Stream<DocumentSnapshot> get callStream => firestore.collection('call').doc(auth.currentUser!.uid).snapshots();
+  Stream<DocumentSnapshot> get callStream =>
+      firestore.collection('call').doc(auth.currentUser!.uid).snapshots();
 
   void createCall(
     CallModel senderCallData,
@@ -41,10 +40,7 @@ class CallRepository {
           .doc(senderCallData.receiverId)
           .set(senderCallData.toMap());
     } catch (e) {
-      showSnackBar(
-        context: context,
-        content: e.toString(),
-      );
+    if (context.mounted)  showSnackBar(context: context, content: e.toString());
     }
   }
 }

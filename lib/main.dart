@@ -55,9 +55,3 @@ class MyApp extends ConsumerWidget {
   }
 }
 
-/**
- * const ResponsiveLayout(
-        mobileScreenLayout: MobileLayoutScreen(),
-        webScreenLayout: WebLayoutScreen(),
-      ),
- */

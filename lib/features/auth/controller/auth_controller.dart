@@ -27,6 +27,10 @@ class AuthController {
     return user;
   }
 
+  Future<void> signOut(BuildContext context) async {
+  await authRepository.logout(context);
+}
+
   void signInWithPhone(BuildContext context, String phoneNumber) {
     authRepository.signInWithPhone(context, phoneNumber);
   }

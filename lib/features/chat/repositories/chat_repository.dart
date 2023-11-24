@@ -427,8 +427,8 @@ class ChatRepository {
           .doc(messageId)
           .update({'isSeen': true});
     } catch (e) {
-      if (context.mounted)
-        showSnackBar(context: context, content: e.toString());
+      
+      if (context.mounted)  showSnackBar(context: context, content: e.toString());
     }
   }
 }

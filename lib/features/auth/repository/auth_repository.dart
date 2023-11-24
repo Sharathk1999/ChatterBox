@@ -4,6 +4,7 @@ import 'package:chatterbox/common/repository/firebase_common_storage_repo.dart';
 import 'package:chatterbox/common/utils/utils.dart';
 import 'package:chatterbox/features/auth/screens/otp_screen.dart';
 import 'package:chatterbox/features/auth/screens/user_info_screen.dart';
+import 'package:chatterbox/features/landing/screens/landing_screen.dart';
 import 'package:chatterbox/screens/mobile_layout_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -60,6 +61,11 @@ class AuthRepository {
       showSnackBar(context: context, content: e.message!);
     }
   }
+
+  Future<void> logout(BuildContext context) async {
+  await auth.signOut();
+  if(context.mounted) Navigator.pushNamed(context, LandingScreen.routeName);
+ }
 
   void verifyOTP({
     required BuildContext context,
