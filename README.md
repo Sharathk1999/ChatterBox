@@ -1,7 +1,7 @@
 
 # ChatterBox
 
-Introducing ChatApp, the ultimate messaging experience for iOS and Android devices.
+Introducing ChatApp, the ultimate messaging experience for  Android devices.
 
 Stay Connected with Friends and Family
 
